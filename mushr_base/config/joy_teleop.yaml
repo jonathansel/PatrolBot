@@ -28,12 +28,12 @@ teleop:
       -
         axis: 1
         target: drive.speed
-        scale: 2.0                   # joystick will command plus or minus 2 meters / second
+        scale: 1.0                   # joystick will command plus or minus 2 meters / second. Scaled to max speed of motor?
         offset: 0.0
       -
-        axis: 2
+        axis: 0                      # using PS4 controller. Logitech is axis 2. 
         target: drive.steering_angle
-        scale: 0.34                  # joystick will command plus or minus ~20 degrees steering angle
+        scale: 0.61                  # joystick will command plus or minus ~35 degrees (~0.61rads) steering angle. Mushr was 20. 58 (33deg to elim stall.
         offset: 0.0
 
   # Enable autonomous control by pressing right bumper
