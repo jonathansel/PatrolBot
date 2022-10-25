@@ -11,12 +11,12 @@ from mushr_base import utils
 from nav_msgs.msg import Odometry
 from sensor_msgs.msg import JointState
 from std_msgs.msg import Float64
+from std_msgs.msg import Float64MultiArray  
 from vesc_msgs.msg import VescStateStamped
 
 """
 Publishes joint and tf information about the racecar
 """
-
 
 class RacecarState:
     """
@@ -41,13 +41,13 @@ class RacecarState:
         )
 
         # Length of the car
-        self.CAR_LENGTH = float(rospy.get_param("vesc/chassis_length", 0.33))
+        self.CAR_LENGTH = float(rospy.get_param("vesc/chassis_length", 0.85))
 
         # Width of the car
-        self.CAR_WIDTH = float(rospy.get_param("vesc/wheelbase", 0.25))
+        self.CAR_WIDTH = float(rospy.get_param("vesc/wheelbase", 0.585))
 
         # The radius of the car wheel in meters
-        self.CAR_WHEEL_RADIUS = 0.0976 / 2.0
+        self.CAR_WHEEL_RADIUS = 0.4445
 
         # Rate at which to publish joints and tf
         self.UPDATE_RATE = float(rospy.get_param("~update_rate", 20.0))
@@ -120,12 +120,12 @@ class RacecarState:
         # Message used to publish joint values
         self.joint_msg = JointState()
         self.joint_msg.name = [
-            "front_left_wheel_throttle",
-            "front_right_wheel_throttle",
-            "back_left_wheel_throttle",
-            "back_right_wheel_throttle",
-            "front_left_wheel_steer",
-            "front_right_wheel_steer",
+            "front_left_wheel_joint",
+            "front_right_wheel_joint",
+            "rear_left_wheel_joint",
+            "rear_right_wheel_joint",
+            "left_hub_joint",
+            "right_hub_joint",
         ]
         self.joint_msg.position = [0, 0, 0, 0, 0, 0]
         self.joint_msg.velocity = []
@@ -147,9 +147,9 @@ class RacecarState:
             "vesc/sensors/core", VescStateStamped, self.speed_cb, queue_size=1
         )
 
-        # Subscribes to the position of the servo arm
-        self.servo_sub = rospy.Subscriber(
-            "vesc/sensors/servo_position_command", Float64, self.servo_cb, queue_size=1
+        # Subscribes to the heading of the steering wheels
+        self.steering_sub = rospy.Subscriber(   
+            "teensy_core", Float64MultiArray, self.steering_cb, queue_size=1
         )
 
         # Timer to updates joints and tf
@@ -184,15 +184,13 @@ class RacecarState:
         self.last_speed_lock.release()
 
     """
-    servo_cb: Callback to capture the steering angle of the car
+    steering_cb: Callback to capture the steering angle of the car
       msg: std_msgs/Float64 message containing the servo value
     """
 
-    def servo_cb(self, msg):
+    def steering_cb(self, msg):
         self.last_steering_angle_lock.acquire()
-        self.last_steering_angle = (
-                                           msg.data - self.STEERING_TO_SERVO_OFFSET
-                                   ) / self.STEERING_TO_SERVO_GAIN
+        self.last_steering_angle = msg.data[1] * (np.pi/180)
         self.last_steering_angle_lock.release()
 
     """
@@ -332,7 +330,7 @@ class RacecarState:
             self.joint_msg.position[i] = self.clip_angle(self.joint_msg.position[i])
 
         t = utils.make_transform_msg(self.cur_odom_to_base_trans, self.cur_odom_to_base_rot,
-                                     self.TF_PREFIX + "base_footprint", self.TF_PREFIX + "odom")
+                                     self.TF_PREFIX + "base_link", self.TF_PREFIX + "odom")
 
         # Publish the tf from odom to base_footprint
         self.br.sendTransform(t)

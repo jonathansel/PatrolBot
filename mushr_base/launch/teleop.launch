@@ -18,11 +18,12 @@
           <arg name="port" value="9090"/>
       </include>
   </group> -->
+  <!-- <include file="$(find scan_robot)/launch/display.launch" /> -->
 
   <group ns="$(arg car_name)">
 
-    <!-- <param name="robot_description"
-           textfile="$(find mushr_description)/robots/$(arg racecar_version).urdf"/> -->
+    <param name="robot_description"
+           textfile="$(find scan_robot)/urdf/scan_robot.urdf"/>
 
     <group ns="vesc">
          <include file="$(find vesc_main)/launch/vesc_main.launch">
@@ -45,21 +46,26 @@
         <arg name="racecar_version" value="$(arg racecar_version)" />
         <arg name="tf_prefix" value="$(arg car_name)" />
         <arg name="car_name" default="$(arg car_name)" />
-    </include>
+    </include> -->
 
-    <include file="$(find mushr_base)/launch/includes/racecar_state.launch">
+    <!-- <include file="$(find mushr_base)/launch/includes/racecar_state.launch">
+        <arg name="tf_prefix" value="" />
+        <arg name="use_mocap" value="$(arg use_mocap)" />
+    </include> -->
+
+    <!-- <include file="$(find mushr_base)/launch/includes/racecar_state.launch">
         <arg name="tf_prefix" value="$(arg car_name)" />
         <arg name="use_mocap" value="$(arg use_mocap)" />
-    </include>
-
-    <include file="$(find mushr_base)/launch/includes/nav_msg_converter.launch">
+    </include> -->
+    
+    <!-- <<include file="$(find mushr_base)/launch/includes/nav_msg_converter.launch">
       <arg name="car_name" value="$(arg car_name)" />
-    </include>
+    </include> -->
 
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="state_publisher">
-      <param name="tf_prefix" value="$(arg car_name)"/>
+      <param name="tf_prefix" value=""/>
       <param name="robot_description" value="/$(arg car_name)/robot_description"/>
-    </node> -->
+    </node> 
 
     <node name="serial_node" pkg="rosserial_python" type="serial_node.py">
       <param name="port" value="/dev/mcu/teensy"/>
