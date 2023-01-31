@@ -124,8 +124,8 @@ class RacecarState:
             "front_right_wheel_joint",
             "rear_left_wheel_joint",
             "rear_right_wheel_joint",
-            "left_hub_joint",
-            "right_hub_joint",
+            "front_left_wheel_steer",
+            "front_right_wheel_steer",
         ]
         self.joint_msg.position = [0, 0, 0, 0, 0, 0]
         self.joint_msg.velocity = []
@@ -178,7 +178,7 @@ class RacecarState:
 
     def speed_cb(self, msg):
         self.last_speed_lock.acquire()
-        self.last_speed = (
+        self.last_speed = -(
                                   msg.state.speed - self.SPEED_TO_ERPM_OFFSET
                           ) / self.SPEED_TO_ERPM_GAIN
         self.last_speed_lock.release()

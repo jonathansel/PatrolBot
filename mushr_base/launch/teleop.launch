@@ -48,31 +48,36 @@
         <arg name="car_name" default="$(arg car_name)" />
     </include> -->
 
-    <!-- <include file="$(find mushr_base)/launch/includes/racecar_state.launch">
+    <include file="$(find mushr_base)/launch/includes/racecar_state.launch">
         <arg name="tf_prefix" value="" />
         <arg name="use_mocap" value="$(arg use_mocap)" />
-    </include> -->
-
-    <!-- <include file="$(find mushr_base)/launch/includes/racecar_state.launch">
-        <arg name="tf_prefix" value="$(arg car_name)" />
-        <arg name="use_mocap" value="$(arg use_mocap)" />
-    </include> -->
+    </include>
     
+    <!-- <include file="$(find scan_robot)/launch/patrol.launch"/> -->
+
     <!-- <<include file="$(find mushr_base)/launch/includes/nav_msg_converter.launch">
       <arg name="car_name" value="$(arg car_name)" />
     </include> -->
 
-    <node pkg="robot_state_publisher" type="robot_state_publisher" name="state_publisher">
+    <!-- <node pkg="robot_state_publisher" type="robot_state_publisher" name="state_publisher">
       <param name="tf_prefix" value=""/>
       <param name="robot_description" value="/$(arg car_name)/robot_description"/>
-    </node> 
+    </node>  -->
 
     <node name="serial_node" pkg="rosserial_python" type="serial_node.py">
       <param name="port" value="/dev/mcu/teensy"/>
       <param name="baud" value="115200"/>
     </node>
 
+    <include file="$(find sick_scan)/launch/sick_lms_1xx.launch">
+        <arg name="hostname" value="169.254.100.189" />
+        <arg name="frame_id" value="laser_lms_laser" />
+    </include>
+
+    <!-- <include file="$(find sick_scan_xd)/launch/sick_tim_5xx.launch">
+        <arg name="hostname" value="169.254.201.75" />
+        <arg name="frame_id" value="laser_tim" />
+    </include> -->
+
   </group>
-
-
 </launch>
