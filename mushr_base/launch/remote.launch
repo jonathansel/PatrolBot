@@ -32,11 +32,11 @@
          </include>
     </group>
 
-    <group ns="teleop">
+    <!-- <group ns="teleop">
         <include file="$(find mushr_base)/launch/includes/joy_teleop.launch">
             <arg name="car_name" value="/$(arg car_name)" />
         </include>
-    </group>
+    </group> -->
 
     <group ns="mux">
         <include file="$(find ackermann_cmd_mux)/launch/mux.launch" />
