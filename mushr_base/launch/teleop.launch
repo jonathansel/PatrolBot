@@ -23,7 +23,7 @@
   <group ns="$(arg car_name)">
 
     <param name="robot_description"
-           textfile="$(find scan_robot)/urdf/patrol.urdf.xacro"/>
+           textfile="$(find scan_robot)/urdf/scan_robot.urdf"/>
 
     <group ns="vesc">
          <include file="$(find vesc_main)/launch/vesc_main.launch">
