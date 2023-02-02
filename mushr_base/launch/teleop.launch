@@ -22,8 +22,8 @@
 
   <group ns="$(arg car_name)">
 
-    <param name="robot_description"
-           textfile="$(find scan_robot)/urdf/scan_robot.urdf"/>
+      <param name="robot_description"
+            textfile="$(find scan_robot)/urdf/scan_robot.urdf"/>
 
     <group ns="vesc">
          <include file="$(find vesc_main)/launch/vesc_main.launch">
@@ -69,10 +69,10 @@
       <param name="baud" value="115200"/>
     </node>
 
-    <!-- <include file="$(find sick_scan)/launch/sick_lms_1xx.launch">
+    <include file="$(find sick_scan)/launch/sick_lms_1xx.launch">
         <arg name="hostname" value="169.254.100.189" />
         <arg name="frame_id" value="laser_lms_laser" />
-    </include> -->
+    </include>
 
     <!-- <include file="$(find sick_scan_xd)/launch/sick_tim_5xx.launch">
         <arg name="hostname" value="169.254.201.75" />
