@@ -72,7 +72,6 @@
     <include file="$(find sick_scan)/launch/sick_lms_1xx.launch">
         <arg name="hostname" value="169.254.100.189" />
         <arg name="frame_id" value="laser_lms_laser" />
-        <arg name="use_binary_protocol" value="true" />
     </include>
 
     <!-- <include file="$(find sick_scan_xd)/launch/sick_tim_5xx.launch">
