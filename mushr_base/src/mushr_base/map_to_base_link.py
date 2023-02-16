@@ -6,7 +6,7 @@ from tf.transformations import euler_from_quaternion, quaternion_from_euler
 import tf2_ros #Transform listener
 import math
 import time
-from std_msgs.msg import UInt16, Int32 #Init UInt16 and UInt32 msg type
+from geometry_msgs.msg import Point
 
 robot_trans_x = 0
 robot_trans_y = 0
@@ -18,7 +18,9 @@ rospy.init_node("map_to_base_link")
 tfBuffer = tf2_ros.Buffer()
 listener = tf2_ros.TransformListener(tfBuffer)
 
-r = rospy.Rate(4)
+pub = rospy.Publisher('mapToBase', Point, queue_size=1)
+
+r = rospy.Rate(4) #how does this affect output data with time 
 
 # While loop to transform robot base_footprint to map frame (tf2 listener)
 while not rospy.is_shutdown():
@@ -32,11 +34,18 @@ while not rospy.is_shutdown():
         r.sleep()
         continue    
 
+    coord_msg = Point()
+    coord_msg.x = trans.x
+    coord_msg.y = trans.y
+    coord_msg.z = 0
+
+    pub.publish(coord_msg)
+
     #Set global vars to found x,y position and quarternion rotation
-    robot_trans_x = trans.x
-    robot_trans_y = trans.y
-    robot_rot_z = rot.z
-    robot_rot_w = rot.w
-    print(robot_trans_x)
+    # robot_trans_x = trans.x
+    # robot_trans_y = trans.y
+    # robot_rot_z = rot.z
+    # robot_rot_w = rot.w
+
 
     r.sleep()
