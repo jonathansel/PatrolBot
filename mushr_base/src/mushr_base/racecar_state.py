@@ -47,7 +47,7 @@ class RacecarState:
         self.CAR_WIDTH = float(rospy.get_param("vesc/wheelbase", 0.585))
 
         # The radius of the car wheel in meters
-        self.CAR_WHEEL_RADIUS = 0.4445 / 2
+        self.CAR_WHEEL_RADIUS = 0.4445 / 2.0
 
         # Rate at which to publish joints and tf
         self.UPDATE_RATE = float(rospy.get_param("~update_rate", 20.0))
