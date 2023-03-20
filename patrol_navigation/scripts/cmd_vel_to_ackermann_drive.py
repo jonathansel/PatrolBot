@@ -23,7 +23,7 @@ def cmd_callback(data):
   
   v = data.linear.x
   steering = convert_trans_rot_vel_to_steering_angle(v, data.angular.z, wheelbase)
-  steering_clipped = clip(steering, -0.55, 0.55) # True min max is 0.61
+  steering_clipped = clip(steering, -0.52, 0.52) # Approx. 30 deg
   print(steering_clipped) 
   msg = AckermannDriveStamped()
   msg.header.stamp = rospy.Time.now()

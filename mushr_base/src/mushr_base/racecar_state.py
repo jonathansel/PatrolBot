@@ -190,7 +190,7 @@ class RacecarState:
 
     def steering_cb(self, msg):
         self.last_steering_angle_lock.acquire()
-        self.last_steering_angle = msg.data[1] * (np.pi/180)
+        self.last_steering_angle = msg.data[0] * (np.pi/180)
         self.last_steering_angle_lock.release()
 
     """
