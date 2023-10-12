@@ -53,7 +53,7 @@
         <arg name="use_mocap" value="$(arg use_mocap)" />
     </include>
     
-    <include file="$(find scan_robot)/launch/patrol.launch"/>
+    <include file="$(find patrol_description)/launch/view_model.launch"/>
 
     <!-- <<include file="$(find mushr_base)/launch/includes/nav_msg_converter.launch">
       <arg name="car_name" value="$(arg car_name)" />
