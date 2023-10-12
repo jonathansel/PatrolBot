@@ -1,0 +1,26 @@
+<!-- -*- mode: XML -*- -->
+<launch>
+  <!-- Change car name to match the name of the car, e.g. car1 -->
+  <arg name="car_name" default="car" />
+
+  <!-- Could be racecar-mit, racecar-uw-tx2, or racecar-uw-nano -->
+  <arg name="racecar_version" default="racecar-uw-nano" />
+
+  <!-- Use mocap published car pose instead of using odom -->
+  <arg name="use_mocap" default="false" />
+
+
+  <group ns="$(arg car_name)">
+
+    <group ns="teleop">
+        <include file="$(find mushr_base)/launch/includes/joy_teleop.launch">
+            <arg name="car_name" value="/$(arg car_name)" />
+        </include>
+    </group>
+
+    <group ns="mux">
+        <include file="$(find ackermann_cmd_mux)/launch/mux.launch" />
+    </group>
+
+  </group>
+</launch>

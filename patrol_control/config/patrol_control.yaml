@@ -1,0 +1,23 @@
+patrol_robot:
+# Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: "joint_state_controller/JointStateController"
+    publish_rate: 50  
+
+# Position and Velocity Controllers ---------------------------------------
+  right_steer_position_controller:
+    type: "effort_controllers/JointPositionController"
+    joint: front_right_wheel_steer
+    pid: {p: 25.0, i: 0.01, d: 5.0}
+  left_steer_position_controller:
+    type: "effort_controllers/JointPositionController"
+    joint: front_left_wheel_steer
+    pid: {p: 25.0, i: 0.01, d: 5.0}
+  rear_right_velocity_controller:
+    type: "effort_controllers/JointVelocityController"
+    joint: rear_right_wheel_joint
+    pid: {p: 6.0, i: 21.0, d: 0.0, i_clamp_min: -255.0, i_clamp_max: 255, antiwindup: True}
+  rear_left_velocity_controller:
+    type: "effort_controllers/JointVelocityController"
+    joint: rear_left_wheel_joint
+    pid: {p: 6.0, i: 21.0, d: 0.0, i_clamp_min: -255.0, i_clamp_max: 255, antiwindup: True}

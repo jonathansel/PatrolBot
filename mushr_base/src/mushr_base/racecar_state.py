@@ -29,7 +29,7 @@ class RacecarState:
             rospy.get_param("vesc/speed_to_erpm_offset", 0.0)
         )
         self.SPEED_TO_ERPM_GAIN = float(
-            rospy.get_param("vesc/speed_to_erpm_gain", 4614.0)
+            rospy.get_param("vesc/speed_to_erpm_gain", 3500.0)
         )
 
         # servo angle = self.STEERING_TO_SERVO_OFFSET + self.STEERING_TO_SERVO_GAIN * steering_angle (rad)
@@ -47,7 +47,7 @@ class RacecarState:
         self.CAR_WIDTH = float(rospy.get_param("vesc/wheelbase", 0.585))
 
         # The radius of the car wheel in meters
-        self.CAR_WHEEL_RADIUS = 0.4445
+        self.CAR_WHEEL_RADIUS = 0.4445 / 2.0
 
         # Rate at which to publish joints and tf
         self.UPDATE_RATE = float(rospy.get_param("~update_rate", 20.0))
@@ -190,7 +190,7 @@ class RacecarState:
 
     def steering_cb(self, msg):
         self.last_steering_angle_lock.acquire()
-        self.last_steering_angle = msg.data[1] * (np.pi/180)
+        self.last_steering_angle = msg.data[0] * (np.pi/180)
         self.last_steering_angle_lock.release()
 
     """
