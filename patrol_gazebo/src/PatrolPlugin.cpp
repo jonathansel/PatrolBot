@@ -16,7 +16,7 @@ PatrolPlugin::PatrolPlugin() {}
 
 
 // Load the controller
-void PatrolPlugin::Load(physics::ModelPtr model, sdf::ElementPtr sdf )
+void PatrolPlugin::Load(physics::ModelPtr model, sdf::ElementPtr sdf)
 {
 
 
