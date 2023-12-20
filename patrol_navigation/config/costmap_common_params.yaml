@@ -16,8 +16,9 @@ obstacle_layer:
  track_unknown_space: false
  combination_method: 1
 
- observation_sources: laser_scan_sensor
- laser_scan_sensor: {data_type: LaserScan, topic: /sick_lms_1xx/scan, marking: true, clearing: true}
+ observation_sources: scan scan_2
+ scan: {sensor_frame: laser_lms_laser, data_type: LaserScan, topic: /sick_lms_1xx/scan, marking: true, clearing: true}
+ scan: {sensor_frame: laser_tim, data_type: LaserScan, topic: /sick_tim_5xx/scan, marking: true, clearing: true}
 
 
 inflation_layer:
