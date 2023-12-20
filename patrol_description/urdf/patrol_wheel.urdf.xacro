@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<robot name="patrol_wheel" xmlns:xacro="http://ros.org/wiki/xacro">
+	<xacro:macro name="patrol_wheel" params="wheel_prefix steer *origin">
+    
+    <!-- Inertial properties are not correct-->
+		<xacro:if value="${steer}">
+			<link name="${wheel_prefix}_wheel_steer_link">
+        <inertial>
+          <mass value="2.637" />
+          <origin xyz="0 0 0" />
+          <inertia  ixx="0.02467" ixy="0" ixz="0" iyy="0.04411" iyz="0" izz="0.02467" />
+        </inertial>
+				<visual>
+					<origin xyz="0 0 0" rpy="0 0 ${-pi/2}" />
+					<geometry>
+						<mesh filename="package://patrol_description/meshes/${wheel_prefix}_hub.STL" />
+					</geometry>
+					<material name="white"/>
+				</visual>
+			</link>
+		</xacro:if>
+
+    <!-- Inertial properties are not correct-->
+    <link name="${wheel_prefix}_wheel_link">
+      <inertial>
+        <mass value="8.637" />
+        <origin xyz="0 0 0" />
+        <inertia  ixx="0.02467" ixy="0" ixz="0" iyy="0.04411" iyz="0" izz="0.02467" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 ${-pi/2}" />
+        <geometry>
+          <mesh filename="package://patrol_description/meshes/${wheel_prefix}_wheel.STL" />
+        </geometry>
+        <material name="white"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="${-pi/2} 0 0" />
+        <geometry>
+          <cylinder length="${wheel_length}" radius="${wheel_radius}" />
+        </geometry>
+      </collision>
+    </link>
+
+    <gazebo reference="${wheel_prefix}_wheel_link">
+      <mu1 value="200.0"/>
+      <mu2 value="200.0"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+    </gazebo> 
+
+		<xacro:if value="${steer}">
+			<joint name="${wheel_prefix}_wheel_steer" type="revolute">
+				<parent link="base_link"/>
+				<child link="${wheel_prefix}_wheel_steer_link"/>
+				<xacro:insert_block name="origin"/>
+				<axis xyz="0 0 1" rpy="0 0 0" />
+				<limit effort="1000" velocity="10" lower="-0.52" upper="0.52" />
+			</joint>
+      
+			<joint name="${wheel_prefix}_wheel_joint" type="continuous">
+				<parent link="${wheel_prefix}_wheel_steer_link"/>
+				<child link="${wheel_prefix}_wheel_link"/>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<axis xyz="0 1 0" rpy="0 0 0" />
+			</joint>
+
+      <transmission name="${wheel_prefix}_steer_trans" type="SimpleTransmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <actuator name="${wheel_prefix}_steer_motor">
+          <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+        <joint name="${wheel_prefix}_wheel_steer">
+          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+      </transmission>
+
+      <transmission name="${wheel_prefix}_wheel_trans" type="SimpleTransmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <actuator name="${wheel_prefix}_wheel_motor">
+          <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+        <joint name="${wheel_prefix}_wheel_joint">
+          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+      </transmission>
+		</xacro:if>
+
+    <!-- Only rear wheels are driven, front are passive -->
+		<xacro:unless value="${steer}">
+			<joint name="${wheel_prefix}_wheel_joint" type="continuous">
+				<parent link="base_link"/>
+				<child link="${wheel_prefix}_wheel_link"/>
+				<xacro:insert_block name="origin"/>
+				<axis xyz="0 1 0" rpy="0 0 0" />
+			</joint>
+
+      <transmission name="${wheel_prefix}_wheel_trans" type="SimpleTransmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <actuator name="${wheel_prefix}_wheel_motor">
+          <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+        <joint name="${wheel_prefix}_wheel_joint">
+          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+      </transmission>
+		</xacro:unless>
+    
+	</xacro:macro>
+</robot>
