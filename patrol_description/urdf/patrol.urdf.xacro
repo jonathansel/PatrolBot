@@ -25,6 +25,7 @@
 
   <xacro:if value="${realsense_enabled}">
     <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro"/>
+    <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro"/>
   </xacro:if>
 
   <xacro:sick_tim_5xx name="laser_tim" ros_topic="sick_tim_5xx"/>
@@ -131,9 +132,9 @@
     <xacro:sensor_d435i parent="base_link" name="cam1" use_nominal_extrinsics="$(arg use_nominal_extrinsics)">
       <origin xyz="2 0.2 0" rpy="0 0 ${pi/2}"/>
     </xacro:sensor_d435i>
-    <xacro:sensor_d435i parent="base_link" name="cam2" use_nominal_extrinsics="$(arg use_nominal_extrinsics)">
+    <xacro:sensor_d435 parent="base_link" name="cam2" use_nominal_extrinsics="$(arg use_nominal_extrinsics)">
       <origin xyz="2 -0.2 0" rpy="0 0 ${-pi/2}"/>
-    </xacro:sensor_d435i>
+    </xacro:sensor_d435>
   </xacro:if>
 
   <!-- Patrol Wheel Macros -->
