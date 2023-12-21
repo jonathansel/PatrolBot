@@ -11,7 +11,7 @@
 
   <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui"/>
 
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find patrol_description)/rvizcofig.rviz"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find patrol_description)/config/rvizconfig.rviz"/>
 
 </launch>
 

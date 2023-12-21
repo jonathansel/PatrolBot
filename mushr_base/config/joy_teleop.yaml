@@ -22,13 +22,13 @@ teleop:
   human_control:
     type: topic
     message_type: ackermann_msgs/AckermannDriveStamped
-    topic_name: mux/ackermann_cmd_mux/input/teleop
+    topic_name: mux/ackermann_cmd_mux/input/teleop  
     deadman_buttons: [4]
     axis_mappings:
       -
         axis: 1
         target: drive.speed
-        scale: 1.5                   # joystick will command plus or minus 1.5 meters / second. erpm = speed_to_erpm_gain * speed (meters / second) + offset
+        scale: 1                  # joystick will command plus or minus 1.5 meters / second. erpm = speed_to_erpm_gain * speed (meters / second) + offset
         offset: 0.0
       -
         axis: 0                      # using PS4 controller. Logitech is axis 2. 
