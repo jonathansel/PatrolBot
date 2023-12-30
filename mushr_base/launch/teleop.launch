@@ -7,8 +7,6 @@
 
     <group ns="vesc">
          <include file="$(find vesc_main)/launch/vesc_main.launch"/>
-             <!-- <arg name="racecar_version" value="$(arg racecar_version)" />
-         </include> -->
     </group>
 
     <group ns="teleop">
@@ -20,12 +18,6 @@
     <group ns="mux">
         <include file="$(find ackermann_cmd_mux)/launch/mux.launch" />
     </group>
-
-    <!-- <include file="$(find mushr_base)/launch/includes/racecar_state.launch">
-        <arg name="tf_prefix" value="" />
-    </include>
-    
-    <include file="$(find patrol_description)/launch/view_model.launch"/> -->
 
     <node name="serial_node" pkg="rosserial_python" type="serial_node.py">
       <param name="port" value="/dev/mcu/teensy"/>
@@ -42,5 +34,20 @@
         <arg name="frame_id" value="laser_tim" />
     </include> -->
 
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="camera" value="cam0"/>
+        <arg name="serial_no" value="841612071482"/>
+    </include>
+
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="camera" value="cam1"/>
+        <arg name="serial_no" value="044322072365"/>
+    </include>
+
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="camera" value="cam2"/>
+        <arg name="serial_no" value="827112070846"/>
+    </include>
+    
   </group>
 </launch>

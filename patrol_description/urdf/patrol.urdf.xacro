@@ -36,9 +36,9 @@
   <!-- Base link is the center of the robot's bottom plate -->
   <link name="base_link">
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 ${-pi/2}" />
+      <origin xyz="0 0 0" rpy="${pi/2} 0 0" />
       <geometry>
-        <mesh filename="package://patrol_description/meshes/base_link.STL" />
+        <mesh filename="package://patrol_description/meshes/ANCS-000.STL" />
       </geometry>
       <material name="white"/> 
     </visual>
@@ -72,16 +72,16 @@
     <child link="inertial_link" />
   </joint>
 
-  <!-- Adjust origin to TiM sensor mount-->
+  <!-- 0.165 -->
   <joint name="laser_tim_mount_joint" type="fixed">
-    <origin xyz="0.75 0 0.2" rpy="0 0 0" />
+    <origin xyz="0.69791 0 0.162" rpy="0 0.349 0" />
     <parent link="base_link" />
     <child link="laser_tim_mount_link" />
   </joint>
 
   <!-- Adjust origin to LMS sensor mount-->
   <joint name="laser_lms_mount_joint" type="fixed">
-    <origin xyz="0.55 0 0.5" rpy="0 0 0" />
+    <origin xyz="0.5288 0 0.47026" rpy="0 0 0" />
     <parent link="base_link" />
     <child link="laser_lms_mount_link" />
   </joint>
@@ -126,13 +126,13 @@
 
   <xacro:if value="${realsense_enabled}">
     <xacro:sensor_d435i parent="base_link" name="cam0" use_nominal_extrinsics="$(arg use_nominal_extrinsics)">
-      <origin xyz="2 0 0" rpy="0 0 0"/>
+      <origin xyz="-0.12213 -0.00228 0.69821" rpy="0 0 0"/>
     </xacro:sensor_d435i>
     <xacro:sensor_d435i parent="base_link" name="cam1" use_nominal_extrinsics="$(arg use_nominal_extrinsics)">
-      <origin xyz="2 0.2 0" rpy="0 0 ${pi/2}"/>
+      <origin xyz="-0.2489 0.1793 0.69821" rpy="0 0 ${pi/2}"/>
     </xacro:sensor_d435i>
     <xacro:sensor_d435i parent="base_link" name="cam2" use_nominal_extrinsics="$(arg use_nominal_extrinsics)">
-      <origin xyz="2 -0.2 0" rpy="0 0 ${-pi/2}"/>
+      <origin xyz="-0.2489 -0.17925 0.69821" rpy="0 0 ${-pi/2}"/>
     </xacro:sensor_d435i>
   </xacro:if>
 
