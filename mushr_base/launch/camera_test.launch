@@ -1,0 +1,26 @@
+<!-- -*- mode: XML -*- -->
+<launch>
+  <!-- Change car name to match the name of the car, e.g. car1 -->
+  <arg name="car_name" default="car" />
+
+  <group ns="$(arg car_name)">
+
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="camera" value="cam0"/>
+        <arg name="serial_no" value="841612071482"/>
+    </include>
+
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="camera" value="cam1"/>
+        <arg name="serial_no" value="044322072365"/>
+    </include>
+
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="camera" value="cam2"/>
+        <arg name="serial_no" value="827112070846"/>
+    </include>
+
+    <include file="$(find patrol_description)/launch/view_model.launch"/> 
+
+  </group>
+</launch>

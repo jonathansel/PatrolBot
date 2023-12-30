@@ -1,7 +1,0 @@
- <!-- -*- mode: XML -*- -->
-<launch>   
-    <include file="$(find sick_scan)/launch/sick_lms_1xx.launch">
-        <arg name="hostname" value="169.254.100.189" />
-        <arg name="frame_id" value="laser_lms_laser" />
-    </include>
-</launch>
