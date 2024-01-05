@@ -5,48 +5,41 @@
 
   <group ns="$(arg car_name)">
 
+    <!-- VESC launch -->
     <group ns="vesc">
          <include file="$(find vesc_main)/launch/vesc_main.launch"/>
     </group>
 
+    <!-- Joystick and Teleop launch -->
     <group ns="teleop">
         <include file="$(find mushr_base)/launch/includes/joy_teleop.launch">
             <arg name="car_name" value="/$(arg car_name)" />
         </include>
     </group>
 
+    <!-- Multiplexer launch -->
     <group ns="mux">
         <include file="$(find ackermann_cmd_mux)/launch/mux.launch" />
     </group>
 
+    <!-- Teensy Serial Comm launch -->
     <node name="serial_node" pkg="rosserial_python" type="serial_node.py">
       <param name="port" value="/dev/mcu/teensy"/>
       <param name="baud" value="115200"/>
     </node>
 
+    <!-- SiCK LiDAR LMS launch -->
     <include file="$(find sick_scan_xd)/launch/sick_lms_1xx.launch">
         <arg name="hostname" value="169.254.100.189" />
         <arg name="frame_id" value="laser_lms_laser" />
     </include>
 
-    <!-- <include file="$(find sick_scan_xd)/launch/sick_tim_5xx.launch">
-        <arg name="hostname" value="169.254.201.75" />
+    <!-- SiCK LiDAR TiM launch - modified copy in includes for adjusting scan angles -->
+    <include file="$(find mushr_base)/launch/includes/sick_tim_5xx.launch">
+        <arg name="hostname" value="169.254.100.75" />
         <arg name="frame_id" value="laser_tim" />
-    </include> -->
-
-    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
-        <arg name="camera" value="cam0"/>
-        <arg name="serial_no" value="841612071482"/>
-    </include>
-
-    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
-        <arg name="camera" value="cam1"/>
-        <arg name="serial_no" value="044322072365"/>
-    </include>
-
-    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
-        <arg name="camera" value="cam2"/>
-        <arg name="serial_no" value="827112070846"/>
+        <arg name="min_ang" type="double" value="-2.35619449"/>
+        <arg name="max_ang" type="double" value="2.35619449"/>
     </include>
     
   </group>

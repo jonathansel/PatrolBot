@@ -5,22 +5,24 @@
 
   <group ns="$(arg car_name)">
 
+    <!-- Realsense launch - cam0(F), cam1(L), cam2(R) -->
     <include file="$(find realsense2_camera)/launch/rs_camera.launch">
         <arg name="camera" value="cam0"/>
         <arg name="serial_no" value="841612071482"/>
+        <arg name="initial_reset" value="true"/>        
     </include>
 
     <include file="$(find realsense2_camera)/launch/rs_camera.launch">
         <arg name="camera" value="cam1"/>
         <arg name="serial_no" value="044322072365"/>
+        <arg name="initial_reset" value="true"/>        
     </include>
 
     <include file="$(find realsense2_camera)/launch/rs_camera.launch">
         <arg name="camera" value="cam2"/>
         <arg name="serial_no" value="827112070846"/>
+        <arg name="initial_reset" value="true"/>        
     </include>
-
-    <include file="$(find patrol_description)/launch/view_model.launch"/> 
 
   </group>
 </launch>

@@ -6,41 +6,15 @@
 
   <group ns="$(arg car_name)">
 
-    <!-- <group ns="teleop">
-        <include file="$(find mushr_base)/launch/includes/joy_teleop.launch">
-            <arg name="car_name" value="/$(arg car_name)" />
-        </include>
-    </group>
-
-    <group ns="mux">
-        <include file="$(find ackermann_cmd_mux)/launch/mux.launch" />
-    </group> -->
-
     <include file="$(find mushr_base)/launch/includes/racecar_state.launch">
         <arg name="tf_prefix" value="" />
     </include>
     
-    <include file="$(find patrol_description)/launch/view_model.launch"/> 
+    <param name="robot_description" command="$(find xacro)/xacro '$(find patrol_description)/urdf/patrol.urdf.xacro'" />
 
-    <!-- <node pkg="robot_state_publisher" type="robot_state_publisher" name="state_publisher">
-      <param name="tf_prefix" value=""/>
-      <param name="robot_description" value="/$(arg car_name)/robot_description"/>
-    </node>  -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 
-    <!-- <node name="serial_node" pkg="rosserial_python" type="serial_node.py">
-      <param name="port" value="/dev/mcu/teensy"/>
-      <param name="baud" value="115200"/>
-    </node> -->
-
-    <!-- <include file="$(find sick_scan)/launch/sick_lms_1xx.launch">
-        <arg name="hostname" value="169.254.100.189" />
-        <arg name="frame_id" value="laser_lms_laser" />
-    </include> -->
-    
-    <!-- <include file="$(find sick_scan_xd)/launch/sick_tim_5xx.launch">
-        <arg name="hostname" value="169.254.201.75" />
-        <arg name="frame_id" value="laser_tim" />
-    </include> -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find patrol_description)/config/rvizconfig.rviz"/>
 
   </group>
 </launch>
