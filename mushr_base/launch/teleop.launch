@@ -38,8 +38,8 @@
     <include file="$(find mushr_base)/launch/includes/sick_tim_5xx.launch">
         <arg name="hostname" value="169.254.100.75" />
         <arg name="frame_id" value="laser_tim" />
-        <arg name="min_ang" type="double" value="-2.35619449"/>
-        <arg name="max_ang" type="double" value="2.35619449"/>
+        <arg name="min_ang" value="-1.5"/>
+        <arg name="max_ang" value="1.5"/>
     </include>
     
   </group>

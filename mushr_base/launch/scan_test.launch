@@ -1,7 +1,17 @@
  <!-- -*- mode: XML -*- -->
 <launch>   
-    <include file="$(find sick_scan)/launch/sick_lms_1xx.launch">
+    <!-- SiCK LiDAR TiM launch - modified copy in includes for adjusting scan angles -->
+    <include file="$(find mushr_base)/launch/includes/sick_tim_5xx.launch">
+        <arg name="hostname" value="169.254.100.75" />
+        <arg name="frame_id" value="laser_tim" />
+        <arg name="min_ang" value="-1"/>
+        <arg name="max_ang" value="1"/>
+    </include>
+
+        <!-- SiCK LiDAR LMS launch -->
+    <include file="$(find sick_scan_xd)/launch/sick_lms_1xx.launch">
         <arg name="hostname" value="169.254.100.189" />
         <arg name="frame_id" value="laser_lms_laser" />
     </include>
+    
 </launch>
