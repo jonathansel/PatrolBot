@@ -3,6 +3,8 @@
 <launch>
   <!-- Change car name to match the name of the car, e.g. car1 -->
   <arg name="car_name" default="car" />
+  
+  <arg name="launch_rviz" default="false" /> 
 
   <group ns="$(arg car_name)">
 
@@ -14,7 +16,7 @@
 
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find patrol_description)/config/rvizconfig.rviz"/>
+    <node if="$(arg launch_rviz)" name="rviz" pkg="rviz" type="rviz" args="-d $(find patrol_description)/config/rvizconfig.rviz"/>
 
   </group>
 </launch>

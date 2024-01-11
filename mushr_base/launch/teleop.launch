@@ -3,6 +3,8 @@
   <!-- Change car name to match the name of the car, e.g. car1 -->
   <arg name="car_name" default="car" />
 
+  <arg name="launch_ublox" default="false" /> 
+
   <group ns="$(arg car_name)">
 
     <!-- VESC launch -->
@@ -42,9 +44,11 @@
         <arg name="max_ang" value="1.5"/>
     </include>
 
-    <include file="$(find ublox_gps)/launch/ublox_device.launch">
-        <arg name="param_file_name" value="zed_f9p" />
-    </include>
+    <group if="$(arg launch_ublox)">
+        <include file="$(find ublox_gps)/launch/ublox_device.launch">
+            <arg name="param_file_name" value="zed_f9p" />
+        </include>
+    </group>
     
   </group>
 </launch>
