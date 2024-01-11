@@ -41,6 +41,10 @@
         <arg name="min_ang" value="-1.5"/>
         <arg name="max_ang" value="1.5"/>
     </include>
+
+    <include file="$(find ublox_gps)/launch/ublox_device.launch">
+        <arg name="param_file_name" value="zed_f9p" />
+    </include>
     
   </group>
 </launch>

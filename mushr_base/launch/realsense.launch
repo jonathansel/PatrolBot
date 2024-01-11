@@ -5,23 +5,38 @@
 
   <group ns="$(arg car_name)">
 
-    <!-- Realsense launch - cam0(F), cam1(L), cam2(R) -->
-    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
-        <arg name="camera" value="cam0"/>
-        <arg name="serial_no" value="841612071482"/>
-        <arg name="initial_reset" value="true"/>        
-    </include>
-
     <include file="$(find realsense2_camera)/launch/rs_camera.launch">
         <arg name="camera" value="cam1"/>
         <arg name="serial_no" value="044322072365"/>
-        <arg name="initial_reset" value="true"/>        
+        <arg name="color_width" value="640"/>
+        <arg name="color_height" value="480"/>
+        <arg name="color_fps" value="15"/>
+        <arg name="align_depth" value="true"/>
+        <arg name="enable_sync" value="true"/>
+        <arg name="enable_pointcloud" value="true"/>        
     </include>
 
     <include file="$(find realsense2_camera)/launch/rs_camera.launch">
         <arg name="camera" value="cam2"/>
         <arg name="serial_no" value="827112070846"/>
-        <arg name="initial_reset" value="true"/>        
+        <arg name="color_width" value="640"/>
+        <arg name="color_height" value="480"/>
+        <arg name="color_fps" value="15"/>
+        <arg name="align_depth" value="true"/>
+        <arg name="enable_sync" value="true"/>
+        <arg name="enable_pointcloud" value="true"/>
+    </include>
+
+    <!-- Realsense launch - cam0(F), cam1(L), cam2(R) -->
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="camera" value="cam0"/>
+        <arg name="serial_no" value="841612071482"/>
+        <arg name="color_width" value="640"/>
+        <arg name="color_height" value="480"/>
+        <arg name="color_fps" value="15"/>
+        <arg name="align_depth" value="true"/>
+        <arg name="enable_sync" value="true"/>
+        <arg name="enable_pointcloud" value="true"/>        
     </include>
 
   </group>
