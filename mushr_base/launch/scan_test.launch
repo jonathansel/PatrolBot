@@ -9,9 +9,19 @@
     </include>
 
         <!-- SiCK LiDAR LMS launch -->
-    <include file="$(find sick_scan_xd)/launch/sick_lms_1xx.launch">
+    <!-- <include file="$(find sick_scan_xd)/launch/sick_lms_1xx.launch">
         <arg name="hostname" value="169.254.100.189" />
         <arg name="frame_id" value="laser_lms_laser" />
-    </include>
-    
+    </include> -->
+
+    <!-- <include file="$(find lms1xx)/launch/LMS1xx.launch">
+        <arg name="host" value="169.254.100.189" />
+        <arg name="frame_id" value="laser_lms_laser" />
+    </include> -->
+
+    <node pkg="lms1xx" name="lms1xx" type="LMS1xx_node">
+        <param name="host" value="169.254.100.189" />
+        <param name="frame_id" value="laser_lms_laser" />
+    </node>
+
 </launch>

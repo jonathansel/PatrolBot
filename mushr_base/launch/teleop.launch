@@ -32,10 +32,15 @@
     </node>
 
     <!-- SiCK LiDAR LMS launch -->
-    <include file="$(find sick_scan_xd)/launch/sick_lms_1xx.launch">
+    <!-- <include file="$(find sick_scan_xd)/launch/sick_lms_1xx.launch">
         <arg name="hostname" value="169.254.100.189" />
         <arg name="frame_id" value="laser_lms_laser" />
-    </include>
+    </include> -->
+
+    <node pkg="lms1xx" name="lms1xx" type="LMS1xx_node">
+        <param name="host" value="169.254.100.189" />
+        <param name="frame_id" value="laser_lms_laser" />
+    </node>
 
     <!-- SiCK LiDAR TiM launch - modified copy in includes for adjusting scan angles -->
     <include file="$(find mushr_base)/launch/includes/sick_tim_5xx.launch">
@@ -53,7 +58,7 @@
 
     <group if="$(arg launch_imu)">
         <node name="um6_driver" pkg="um6" type="um6_driver">
-            <param name="port" value="/dev/sensors/imu" />
+            <param name="port" value="/dev/sensors/um6" />
         </node>    
     </group>
     
