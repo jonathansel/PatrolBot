@@ -4,6 +4,7 @@
   <arg name="car_name" default="car" />
 
   <arg name="launch_ublox" default="false" /> 
+  <arg name="launch_imu" default="false" /> 
 
   <group ns="$(arg car_name)">
 
@@ -48,6 +49,12 @@
         <include file="$(find ublox_gps)/launch/ublox_device.launch">
             <arg name="param_file_name" value="zed_f9p" />
         </include>
+    </group>
+
+    <group if="$(arg launch_imu)">
+        <node name="um6_driver" pkg="um6" type="um6_driver">
+            <param name="port" value="/dev/sensors/imu" />
+        </node>    
     </group>
     
   </group>

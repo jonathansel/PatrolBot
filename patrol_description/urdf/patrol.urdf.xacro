@@ -38,7 +38,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="${pi/2} 0 0" />
       <geometry>
-        <mesh filename="package://patrol_description/meshes/ANCS-000.STL" />
+        <mesh filename="package://patrol_description/meshes/ANCS-000-R1.STL" />
       </geometry>
       <material name="white"/> 
     </visual>
@@ -70,6 +70,34 @@
     <origin xyz="0 0 0" rpy="0 0 0" />
     <parent link="base_link" />
     <child link="inertial_link" />
+  </joint>
+
+  <link name="imu_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+    </inertial>
+  </link>
+
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0.193 0.0868 0.27458" rpy="0 0 0"/>
+  </joint>
+
+  <link name="gps">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+    </inertial>
+  </link>
+
+  <joint name="gps_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="gps"/>
+    <origin xyz="-0.2489 -0.11358 0.86478" rpy="0 0 0"/>
   </joint>
 
   <!-- 0.165 -->
@@ -126,7 +154,7 @@
 
   <xacro:if value="${realsense_enabled}">
     <xacro:sensor_d435i parent="base_link" name="cam0" use_nominal_extrinsics="$(arg use_nominal_extrinsics)">
-      <origin xyz="-0.12213 -0.00228 0.69821" rpy="0 0 0"/>
+      <origin xyz="-0.11913 -0.00228 0.78821" rpy="0 0 0"/>
     </xacro:sensor_d435i>
     <xacro:sensor_d435i parent="base_link" name="cam1" use_nominal_extrinsics="$(arg use_nominal_extrinsics)">
       <origin xyz="-0.2489 0.1793 0.69821" rpy="0 0 ${pi/2}"/>

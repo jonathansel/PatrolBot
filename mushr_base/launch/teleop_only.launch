@@ -1,0 +1,33 @@
+<!-- -*- mode: XML -*- -->
+<launch>
+  <!-- Change car name to match the name of the car, e.g. car1 -->
+  <arg name="car_name" default="car" />
+
+  <group ns="$(arg car_name)">
+
+    <!-- VESC launch -->
+    <group ns="vesc">
+         <include file="$(find vesc_main)/launch/vesc_main.launch"/>
+    </group>
+
+    <!-- Joystick and Teleop launch -->
+    <group ns="teleop">
+        <include file="$(find mushr_base)/launch/includes/joy_teleop.launch">
+            <arg name="car_name" value="/$(arg car_name)" />
+        </include>
+    </group>
+
+    <!-- Multiplexer launch -->
+    <group ns="mux">
+        <include file="$(find ackermann_cmd_mux)/launch/mux.launch" />
+    </group>
+
+    <!-- Teensy Serial Comm launch -->
+    <node name="serial_node" pkg="rosserial_python" type="serial_node.py">
+      <param name="port" value="/dev/mcu/teensy"/>
+      <param name="baud" value="115200"/>
+    </node>
+    
+  </group>
+  
+</launch>
