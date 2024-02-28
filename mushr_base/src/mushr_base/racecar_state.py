@@ -30,10 +30,10 @@ class RacecarState:
         )
 
         self.SPEED_TO_ERPM_GAIN = float(
-            rospy.get_param("vesc/speed_to_erpm_gain", 2500.0)
+            rospy.get_param("vesc/speed_to_erpm_gain", 3500.0)
         )
 
-        print(self.SPEED_TO_ERPM_GAIN)
+        # print(self.SPEED_TO_ERPM_GAIN)
 
         # servo angle = self.STEERING_TO_SERVO_OFFSET + self.STEERING_TO_SERVO_GAIN * steering_angle (rad)
         self.STEERING_TO_SERVO_OFFSET = float(

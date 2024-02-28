@@ -30,19 +30,14 @@
       <param name="port" value="/dev/mcu/teensy"/>
       <param name="baud" value="115200"/>
     </node>
-
-    <!-- SiCK LiDAR LMS launch -->
-    <!-- <include file="$(find sick_scan_xd)/launch/sick_lms_1xx.launch">
-        <arg name="hostname" value="169.254.100.189" />
-        <arg name="frame_id" value="laser_lms_laser" />
-    </include> -->
-
+    
+    <!-- SiCK LiDAR LMS launch - Horizontal LiDAR -->
     <node pkg="lms1xx" name="lms1xx" type="LMS1xx_node">
         <param name="host" value="169.254.100.189" />
         <param name="frame_id" value="laser_lms_laser" />
     </node>
 
-    <!-- SiCK LiDAR TiM launch - modified copy in includes for adjusting scan angles -->
+    <!-- SiCK LiDAR TiM launch - Angled LiDAR - 1.5 FOV without cover, -1 to 1 when cover installed -->
     <include file="$(find mushr_base)/launch/includes/sick_tim_5xx.launch">
         <arg name="hostname" value="169.254.100.75" />
         <arg name="frame_id" value="laser_tim" />
@@ -50,26 +45,23 @@
         <arg name="max_ang" value="1.5"/>
     </include>
 
+    <!-- SimpleRTK2B GPS U-Blox zed-f9p -->
     <group if="$(arg launch_ublox)">
         <include file="$(find ublox_gps)/launch/ublox_device.launch">
             <arg name="param_file_name" value="zed_f9p" />
         </include>
     </group>
 
+    <!-- CHRobotics UM6 Sensor -->
     <group if="$(arg launch_imu)">
-        <!-- <node name="um6_driver" pkg="um6" type="um6_driver">
-            <param name="port" value="/dev/sensors/um6" />
-        </node>     -->
-
         <node pkg="um6" type="um6_driver" name="um6_driver">
             <param name="port" type="string" value="/dev/sensors/um6"/>
             <param name="mag_updates" type="bool" value="false"/>
             <param name="use_magnetic_field_msg" type="bool" value="true"/>
             <param name="frame_id" value="imu_link"/> 
-            <param name="tf_ned_to_enu" value="false"/> <!-- moves as expected in roobot urdf-->
+            <param name="tf_ned_to_enu" value="true"/> <!-- moves as expected in roobot urdf-->
             <remap from="imu" to="imu_um6"/>
         </node>
-
     </group>
     
   </group>
