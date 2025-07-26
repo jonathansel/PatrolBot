@@ -4,23 +4,30 @@
   <node pkg="nodelet" type="nodelet" name="imu_manager" args="manager"/>
 
   <!-- Transforms UM6 tilted data in imu_link frame to ENU data in base_link frame -->
-  <node pkg="nodelet" type="nodelet" name="imu_data_transformer" args="load imu_transformer/imu_transformer_nodelet imu_manager">
-    <remap from="imu_in" to="car/imu_um6"/>
+  <!-- <node pkg="nodelet" type="nodelet" name="imu_data_transformer" args="load imu_transformer/imu_transformer_nodelet imu_manager">
+    <remap from="imu_in" to="car/imu_um6/data"/>
     <remap from="imu_out/data" to="imu/data_raw"/>
     <remap from="imu_out/mag" to="imu/mag"/>
-    <param name="target_frame" value="base_link"/>
-  </node>
+    <param name="target_frame" value="imu_link"/>
+  </node> -->
 
   <!-- Filter raw gyro, accel and mag data into a usable orientation using calib4/5 outdoor enu -->
   <node pkg="nodelet" type="nodelet" name="imu_filter" args="load imu_filter_madgwick/ImuFilterNodelet imu_manager">
+    <remap from="imu/data_raw" to="car/imu_um6/data"/>    
+    <remap from="imu/mag" to="/car/imu_um6/mag"/>
     <rosparam>
       orientation_stddev: 0.001
       gain: 0.01
       zeta: 0.001
       publish_tf: false
-      use_magnetic_field_msg: true
+      fixed_frame: base_footprint
+      world frame: enu
+      use_mag: false
+      use_magnetic_field_msg: false
       mag_bias_x: -0.445872
       mag_bias_y: 1.15995
       mag_bias_z: -0.320073
     </rosparam>
   </node>
+
+</launch>

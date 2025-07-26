@@ -333,7 +333,7 @@ class RacecarState:
             self.joint_msg.position[i] = self.clip_angle(self.joint_msg.position[i])
 
         t = utils.make_transform_msg(self.cur_odom_to_base_trans, self.cur_odom_to_base_rot,
-                                     self.TF_PREFIX + "base_link", self.TF_PREFIX + "odom")
+                                     self.TF_PREFIX + "base_footprint", self.TF_PREFIX + "odom")
 
         # Publish the tf from odom to base_footprint
         self.br.sendTransform(t)
@@ -350,7 +350,7 @@ class RacecarState:
         odom_msg.pose.pose.position = t.transform.translation
         odom_msg.pose.pose.orientation = t.transform.rotation
 
-        odom_msg.child_frame_id = self.TF_PREFIX + "base_link"
+        odom_msg.child_frame_id = self.TF_PREFIX + "base_footprint"
         odom_msg.twist.twist.linear.x = dx
         odom_msg.twist.twist.linear.y = dy
         odom_msg.twist.twist.angular.z = dtheta

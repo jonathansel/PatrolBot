@@ -6,8 +6,8 @@
     <node pkg="nodelet" type="nodelet" name="nodelet1"
     args="load depth_image_proc/point_cloud_xyzrgb nodelet_manager">
 
-    <remap from="rgb/camera_info" to="/cam1/color/camera_info"/>
-    <remap from="rgb/image_rect_color" to="/cam1/lane_mask"/>
+    <remap from="rgb/camera_info" to="/cam1/aligned_depth_to_color/camera_info"/>
+    <remap from="rgb/image_rect_color" to="/cam1/lane_mask_with_frame"/> 
     <remap from="depth_registered/image_rect" to="/cam1/aligned_depth_to_color/image_raw"/>
 
     </node>

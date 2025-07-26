@@ -7,8 +7,10 @@ Panels:
         - /Global Options1
         - /Status1
         - /TF1
+        - /PointCloud21
+        - /LaserScan1
         - /Marker1
-        - /Marker2
+        - /MarkerArray1
       Splitter Ratio: 0.5
     Tree Height: 514
   - Class: rviz/Selection
@@ -28,7 +30,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: LaserScan
+    SyncSource: ""
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -323,8 +325,6 @@ Visualization Manager:
           Value: true
         cam0_accel_optical_frame:
           Value: true
-        cam0_aligned_depth_to_color_frame:
-          Value: true
         cam0_bottom_screw_frame:
           Value: true
         cam0_color_frame:
@@ -352,8 +352,6 @@ Visualization Manager:
         cam1_accel_frame:
           Value: true
         cam1_accel_optical_frame:
-          Value: true
-        cam1_aligned_depth_to_color_frame:
           Value: true
         cam1_bottom_screw_frame:
           Value: true
@@ -383,8 +381,6 @@ Visualization Manager:
           Value: true
         cam2_accel_optical_frame:
           Value: true
-        cam2_aligned_depth_to_color_frame:
-          Value: true
         cam2_bottom_screw_frame:
           Value: true
         cam2_color_frame:
@@ -409,14 +405,6 @@ Visualization Manager:
           Value: true
         cam2_link:
           Value: true
-        front_left_wheel_link:
-          Value: true
-        front_left_wheel_steer_link:
-          Value: true
-        front_right_wheel_link:
-          Value: true
-        front_right_wheel_steer_link:
-          Value: true
         gps:
           Value: true
         imu_link:
@@ -431,14 +419,6 @@ Visualization Manager:
           Value: true
         laser_tim_mount_link:
           Value: true
-        map:
-          Value: true
-        odom:
-          Value: true
-        rear_left_wheel_link:
-          Value: true
-        rear_right_wheel_link:
-          Value: true
       Marker Alpha: 1
       Marker Scale: 0.5
       Name: TF
@@ -446,98 +426,79 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        map:
-          odom:
-            base_link:
-              base_footprint:
-                {}
-              cam0_bottom_screw_frame:
-                cam0_link:
-                  cam0_accel_frame:
-                    cam0_accel_optical_frame:
-                      {}
-                  cam0_aligned_depth_to_color_frame:
-                    cam0_color_optical_frame:
-                      {}
-                  cam0_color_frame:
+        base_footprint:
+          base_link:
+            cam0_bottom_screw_frame:
+              cam0_link:
+                cam0_accel_frame:
+                  cam0_accel_optical_frame:
                     {}
-                  cam0_depth_frame:
-                    cam0_depth_optical_frame:
-                      {}
-                  cam0_gyro_frame:
-                    cam0_gyro_optical_frame:
-                      {}
-                  cam0_infra1_frame:
-                    cam0_infra1_optical_frame:
-                      {}
-                  cam0_infra2_frame:
-                    cam0_infra2_optical_frame:
-                      {}
-              cam1_bottom_screw_frame:
-                cam1_link:
-                  cam1_accel_frame:
-                    cam1_accel_optical_frame:
-                      {}
-                  cam1_aligned_depth_to_color_frame:
-                    cam1_color_optical_frame:
-                      {}
-                  cam1_color_frame:
+                cam0_color_frame:
+                  cam0_color_optical_frame:
                     {}
-                  cam1_depth_frame:
-                    cam1_depth_optical_frame:
-                      {}
-                  cam1_gyro_frame:
-                    cam1_gyro_optical_frame:
-                      {}
-                  cam1_infra1_frame:
-                    cam1_infra1_optical_frame:
-                      {}
-                  cam1_infra2_frame:
-                    cam1_infra2_optical_frame:
-                      {}
-              cam2_bottom_screw_frame:
-                cam2_link:
-                  cam2_accel_frame:
-                    cam2_accel_optical_frame:
-                      {}
-                  cam2_aligned_depth_to_color_frame:
-                    cam2_color_optical_frame:
-                      {}
-                  cam2_color_frame:
+                cam0_depth_frame:
+                  cam0_depth_optical_frame:
                     {}
-                  cam2_depth_frame:
-                    cam2_depth_optical_frame:
-                      {}
-                  cam2_gyro_frame:
-                    cam2_gyro_optical_frame:
-                      {}
-                  cam2_infra1_frame:
-                    cam2_infra1_optical_frame:
-                      {}
-                  cam2_infra2_frame:
-                    cam2_infra2_optical_frame:
-                      {}
-              front_left_wheel_steer_link:
-                front_left_wheel_link:
-                  {}
-              front_right_wheel_steer_link:
-                front_right_wheel_link:
-                  {}
-              gps:
+                cam0_gyro_frame:
+                  cam0_gyro_optical_frame:
+                    {}
+                cam0_infra1_frame:
+                  cam0_infra1_optical_frame:
+                    {}
+                cam0_infra2_frame:
+                  cam0_infra2_optical_frame:
+                    {}
+            cam1_bottom_screw_frame:
+              cam1_link:
+                cam1_accel_frame:
+                  cam1_accel_optical_frame:
+                    {}
+                cam1_color_frame:
+                  cam1_color_optical_frame:
+                    {}
+                cam1_depth_frame:
+                  cam1_depth_optical_frame:
+                    {}
+                cam1_gyro_frame:
+                  cam1_gyro_optical_frame:
+                    {}
+                cam1_infra1_frame:
+                  cam1_infra1_optical_frame:
+                    {}
+                cam1_infra2_frame:
+                  cam1_infra2_optical_frame:
+                    {}
+            cam2_bottom_screw_frame:
+              cam2_link:
+                cam2_accel_frame:
+                  cam2_accel_optical_frame:
+                    {}
+                cam2_color_frame:
+                  cam2_color_optical_frame:
+                    {}
+                cam2_depth_frame:
+                  cam2_depth_optical_frame:
+                    {}
+                cam2_gyro_frame:
+                  cam2_gyro_optical_frame:
+                    {}
+                cam2_infra1_frame:
+                  cam2_infra1_optical_frame:
+                    {}
+                cam2_infra2_frame:
+                  cam2_infra2_optical_frame:
+                    {}
+            gps:
+              {}
+            imu_link:
+              {}
+            inertial_link:
+              {}
+            laser_lms_mount_link:
+              laser_lms_laser:
                 {}
-              imu_link:
-                {}
-              inertial_link:
-                {}
-              laser_lms_mount_link:
-                laser_lms_laser:
-                  {}
-              laser_tim_mount_link:
-                laser_tim:
-                  {}
-              rear_left_wheel_link:
-                {}
-              rear_right_wheel_link:
+            laser_tim_mount_link:
+              laser_tim:
                 {}
       Update Interval: 0
       Value: true
@@ -564,7 +525,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.009999999776482582
       Style: Flat Squares
-      Topic: /point_cloud_topic
+      Topic: /depth_registered/points
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -590,7 +551,7 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.009999999776482582
+      Size (m): 0.07999999821186066
       Style: Flat Squares
       Topic: /sick_tim_5xx/scan
       Unreliable: false
@@ -609,26 +570,18 @@ Visualization Manager:
       Value: true
     - Class: rviz/Marker
       Enabled: true
-      Marker Topic: /line_one
+      Marker Topic: /marker_array
       Name: Marker
       Namespaces:
         {}
       Queue Size: 100
       Value: true
-    - Class: rviz/Marker
+    - Class: rviz/MarkerArray
       Enabled: true
-      Marker Topic: /line_two
-      Name: Marker
+      Marker Topic: /spot_array
+      Name: MarkerArray
       Namespaces:
         {}
-      Queue Size: 100
-      Value: true
-    - Class: rviz/Marker
-      Enabled: true
-      Marker Topic: /visualization_marker
-      Name: Marker
-      Namespaces:
-        rectangle: true
       Queue Size: 100
       Value: true
     - Class: rviz/Image
@@ -671,7 +624,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 8.522298812866211
+      Distance: 0.46916237473487854
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -679,17 +632,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 32.81998825073242
-        Y: 0.004768272861838341
-        Z: 7.657370090484619
+        X: 7.569777965545654
+        Y: -6.682296276092529
+        Z: 16.04745101928711
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.020202875137329
+      Pitch: 1.039919137954712
       Target Frame: <Fixed Frame>
-      Yaw: 5.138562202453613
+      Yaw: 5.489202499389648
     Saved: ~
 Window Geometry:
   Displays:

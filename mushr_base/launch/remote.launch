@@ -20,7 +20,7 @@
         <remap from="scan" to="/car/scan"/>
 
         <!-- gmapping parameters -->
-        <param name="base_frame" value="base_link"/>
+        <param name="base_frame" value="base_footprint"/>
         <param name="odom_frame" value="odom"/>
         <!-- <param name="map_update_interval" value="5.0"/> -->
         <param name="maxUrange" value="30.0"/>
